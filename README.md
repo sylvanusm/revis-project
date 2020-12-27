@@ -18,11 +18,17 @@ We will be using a dataset containing 200 different classes of birds adapted fro
 Download the training/validation/test images from [here](https://www.di.ens.fr/willow/teaching/recvis18orig/assignment3/bird_dataset.zip). The test image labels are not provided.
 
 #### Training and validating your model
-Run the script `main.py` to train your model.
+Download the zip file and place it in inputs/  
+Before going forward open and run notebooks/Data_augmentation.ipynb
 
-Modify `main.py`, `model.py` and `data.py` for your assignment, with an aim to make the validation score better.
+To train a model you can run the script:
 
+```
+main.py --model [model_name]
+```
+:
 - By default the images are loaded and resized to 64x64 pixels and normalized to zero-mean and standard deviation of 1. See data.py for the `data_transforms`.
+The best model will be automatically saved in outputs/
 
 #### Evaluating your model on the test set
 
@@ -30,7 +36,7 @@ As the model trains, model checkpoints are saved to files such as `model_x.pth` 
 You can take one of the checkpoints and run:
 
 ```
-python evaluate.py --data [data_dir] --model [model_file]
+python evaluate.py --data [data_dir] --model [model_name] --weights [checkpoint_path]
 ```
 
 That generates a file `kaggle.csv` that you can upload to the private kaggle competition website.

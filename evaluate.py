@@ -2,24 +2,24 @@ import argparse
 from tqdm import tqdm
 import os
 import PIL.Image as Image
-
 import torch
-
-from model import Net
+from model import model_dict
 
 parser = argparse.ArgumentParser(description='RecVis A3 evaluation script')
 parser.add_argument('--data', type=str, default='bird_dataset', metavar='D',
                     help="folder where data is located. test_images/ need to be found in the folder")
-parser.add_argument('--model', type=str, metavar='M',
+parser.add_argument('--model', type=str, default='deit_tiny',
+                    help='name of the model to train: to choose emong: resnext, deit_tiny and deit_bese')
+parser.add_argument('--weights', type=str, metavar='W',
                     help="the model file to be evaluated. Usually it is of the form model_X.pth")
-parser.add_argument('--outfile', type=str, default='experiment/kaggle.csv', metavar='D',
+parser.add_argument('--outfile', type=str, default='outputs/experiments/kaggle.csv', metavar='D',
                     help="name of the output csv file")
 
 args = parser.parse_args()
 use_cuda = torch.cuda.is_available()
 
-state_dict = torch.load(args.model)
-model = Net()
+state_dict = torch.load(args.weights)
+model = model_dict[args.model]
 model.load_state_dict(state_dict)
 model.eval()
 if use_cuda:
@@ -43,7 +43,7 @@ output_file = open(args.outfile, "w")
 output_file.write("Id,Category\n")
 for f in tqdm(os.listdir(test_dir)):
     if 'jpg' in f:
-        data = data_transforms(pil_loader(test_dir + '/' + f))
+        data = data_transforms["val_images"](pil_loader(test_dir + '/' + f))
         data = data.view(1, data.size(0), data.size(1), data.size(2))
         if use_cuda:
             data = data.cuda()
@@ -54,6 +54,6 @@ for f in tqdm(os.listdir(test_dir)):
 output_file.close()
 
 print("Succesfully wrote " + args.outfile + ', you can upload this file to the kaggle competition website')
-        
+
 
 

@@ -9,6 +9,7 @@ __pycache__/
 #repo folders
 inputs/*
 dependences/*
+outputs/experiments/*
 
 # Distribution / packaging
 .Python
