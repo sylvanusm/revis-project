@@ -40,7 +40,3 @@ python evaluate.py --data [data_dir] --model [model_name] --weights [checkpoint_
 ```
 
 That generates a file `kaggle.csv` that you can upload to the private kaggle competition website.
-
-#### Acknowledgments
-Adapted from Rob Fergus and Soumith Chintala https://github.com/soumith/traffic-sign-detection-homework.<br/>
-Adaptation done by Gul Varol: https://github.com/gulvarol

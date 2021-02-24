@@ -5,6 +5,7 @@ import PIL.Image as Image
 import torch
 from model import model_dict
 
+# evalution arguments definition
 parser = argparse.ArgumentParser(description='RecVis A3 evaluation script')
 parser.add_argument('--data', type=str, default='bird_dataset', metavar='D',
                     help="folder where data is located. test_images/ need to be found in the folder")
@@ -33,7 +34,15 @@ from data import data_transforms
 test_dir = args.data + '/test_images/mistery_category'
 
 def pil_loader(path):
-    # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
+    """open path as file to avoid ResourceWarning
+
+    Args:
+        path (string): image path
+
+    Returns:
+        Image: RGB like image
+    """
+    # open path as file to avoid ResourceWarning 
     with open(path, 'rb') as f:
         with Image.open(f) as img:
             return img.convert('RGB')

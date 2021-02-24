@@ -37,6 +37,7 @@ args = parser.parse_args()
 use_cuda = torch.cuda.is_available()
 torch.manual_seed(args.seed)
 
+
 # Create experiment folder
 if not os.path.isdir(args.experiment):
     os.makedirs(args.experiment)
@@ -72,8 +73,9 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
 
 # training
 def train(model, criterion, dataloaders, dataset_sizes,  optimizer, scheduler, num_epochs=10):
+    """train method
+    """
     since = time.time()
-
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
 
